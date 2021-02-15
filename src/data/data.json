@@ -1,0 +1,17 @@
+[
+    {
+        "code": 7845,
+        "description":"Arroz",
+        "price":1200
+    },
+    {
+        "code": 7846,
+        "description":"Azucar",
+        "price":1500
+    },
+    {
+        "code": 7847,
+        "description":"Sal",
+        "price":990
+    }
+]

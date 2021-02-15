@@ -1,25 +1,54 @@
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import products from './data/data.json';
+import Products from './components/Products';
+import ProductForm from './components/ProductForm';
+import Post from './components/Post';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+class App extends Component  {
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  state = {
+    products: products
+  }
+
+  addProduct = (code, description, price) => {
+    const newProduct = {
+      code: code,
+      description: description,
+      price: price
+    }
+    this.setState({
+      products: [...this.state.products, newProduct]
+    })
+  }
+
+  deleteProduct = (code) => {
+    const afterDelete = this.state.products.filter(product => product.code != code);
+    this.setState({products: afterDelete});
+  }
+
+  render() {
+    return <div>
+      <BrowserRouter>
+        <Link className="btn btn-secondary text-white btn-spacing" to="/">Home</Link>
+        <Link className="btn btn-secondary text-white btn-spacing" to="/post">post</Link>
+        <Route exact path="/" render={()=> {
+            return <div>
+            <ProductForm add={this.addProduct} />
+            <Products prod={this.state.products} delete={this.deleteProduct} />
+            </div>
+          
+          }}>
+
+          </Route>
+          <Route path="/post" component={Post}>
+
+          </Route>
+        </BrowserRouter>
+        
+          
+        
+      </div>
+ }
 }
-
 export default App;
